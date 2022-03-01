@@ -192,7 +192,7 @@ void objects::ShaderProgram::set_float(const char* name, float value) const {
 }
 
 void objects::ShaderProgram::set_vec2(const char* name, float x, float y) const {
-	glUniform3f(glGetUniformLocation(m_program, name), x, y);
+	glUniform2f(glGetUniformLocation(m_program, name), x, y);
 }
 
 void objects::ShaderProgram::set_vec2(const char* name, glm::vec2 vec) const {
