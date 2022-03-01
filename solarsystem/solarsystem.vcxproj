@@ -155,6 +155,10 @@
     <ClInclude Include="rendering\render.h" />
     <ClInclude Include="rendering\sphere.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\f_shader.glsl" />
+    <None Include="shaders\v_shader.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

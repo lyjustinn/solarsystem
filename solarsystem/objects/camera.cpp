@@ -33,15 +33,15 @@ void objects::Camera::process_keyboard_input(CameraDirection direction, float ti
         m_position -= m_worldUp* velocity;
 }
 
-void objects::Camera::process_mouse_movement(float xOffset, float yOffset, bool constrainPitch) {
-    xOffset *= m_sensitivity;
-    yOffset *= m_sensitivity;
+void objects::Camera::process_mouse_movement(float xoffset, float yoffset, bool constrain_pitch) {
+    xoffset *= m_sensitivity;
+    yoffset *= m_sensitivity;
 
-    m_yaw += xOffset;
-    m_pitch += yOffset;
+    m_yaw += xoffset;
+    m_pitch += yoffset;
 
     // constrain the pitch between 89 and -89 degrees
-    if (constrainPitch)
+    if (constrain_pitch)
     {
         if (m_pitch > 89.0f)
             m_pitch = 89.0f;

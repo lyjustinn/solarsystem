@@ -116,7 +116,7 @@ objects::ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragme
 		vShaderFile.open(vertexPath);
 		fShaderFile.open(fragmentPath);
 
-		std::stringstream vShaderStream, fShaderStream, gShaderStream;
+		std::stringstream vShaderStream, fShaderStream;
 
 		vShaderStream << vShaderFile.rdbuf();
 		fShaderStream << fShaderFile.rdbuf();

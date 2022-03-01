@@ -53,4 +53,12 @@
       <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\v_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\f_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
 </Project>

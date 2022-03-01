@@ -33,9 +33,9 @@ namespace objects {
         Camera(glm::vec3 position, glm::vec3 front, glm::vec3 worldUp);
 
         glm::mat4 get_view_matrix();
-        void process_keyboard_input(CameraDirection direction, float timeSpan);
-        void process_mouse_movement(float xOffset, float yOffset, bool constrainPitch);
-        void process_mouse_scroll(float scrollOffset);
+        void process_keyboard_input(CameraDirection, float );
+        void process_mouse_movement(float xoffset, float yoffset, bool constain_pitch = true);
+        void process_mouse_scroll(float scroll_offset);
 
     private:
 
