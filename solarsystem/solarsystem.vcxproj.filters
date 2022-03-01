@@ -35,6 +35,9 @@
     <ClCompile Include="rendering\render.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\sphere.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h">
@@ -44,6 +47,9 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="rendering\render.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\sphere.h">
       <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
