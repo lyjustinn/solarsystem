@@ -146,10 +146,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects\camera.cpp" />
     <ClCompile Include="objects\shader_program.cpp" />
+    <ClCompile Include="rendering\render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h" />
     <ClInclude Include="objects\shader_program.h" />
+    <ClInclude Include="rendering\render.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

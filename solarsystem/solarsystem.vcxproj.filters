@@ -15,6 +15,9 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{de17842b-7296-4788-ba02-f5a2591114ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{aad740ee-34a7-46a6-b619-fe6dcef9026e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +32,9 @@
     <ClCompile Include="objects\shader_program.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\render.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h">
@@ -36,6 +42,9 @@
     </ClInclude>
     <ClInclude Include="objects\shader_program.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\render.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
