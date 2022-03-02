@@ -32,10 +32,10 @@
     <ClCompile Include="objects\shader_program.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\render.cpp">
+    <ClCompile Include="rendering\sphere.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\sphere.cpp">
+    <ClCompile Include="rendering\render.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,10 +46,10 @@
     <ClInclude Include="objects\shader_program.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="rendering\render.h">
+    <ClInclude Include="rendering\sphere.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="rendering\sphere.h">
+    <ClInclude Include="rendering\render.h">
       <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
