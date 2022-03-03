@@ -1,7 +1,7 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "../objects/camera.h";
+#include "../objects/camera.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -15,8 +15,8 @@ namespace rendering {
 	extern float lasty;
 	extern bool first_mouse;
 
-	const unsigned int SCR_WIDTH = 800;
-	const unsigned int SCR_HEIGHT = 600;
+	extern const unsigned int SCR_WIDTH;
+	extern const unsigned int SCR_HEIGHT;
 
 	extern objects::Camera camera;
 
@@ -26,8 +26,7 @@ namespace rendering {
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	
 	GLFWwindow* create_window();
-
-	void render(GLFWwindow *);
+	GLFWwindow* init_glfw_glad();
 }
 
 #endif // !RENDER_H

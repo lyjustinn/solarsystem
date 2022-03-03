@@ -38,6 +38,9 @@
     <ClCompile Include="rendering\render.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\program.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h">
@@ -50,6 +53,9 @@
       <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="rendering\render.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\program.h">
       <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
