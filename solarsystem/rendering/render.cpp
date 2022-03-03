@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-float rendering::delta_time = 0;
-float rendering::last_frame = 0;
+float rendering::delta_time = 0.0f;
+float rendering::last_frame = 0.0f;
 
-float rendering::lastx = 0;
-float rendering::lasty = 0;
-bool rendering::first_mouse = 0;
+float rendering::lastx = 0.0f;
+float rendering::lasty = 0.0f;
+bool rendering::first_mouse = true;
 
 const unsigned int rendering::SCR_WIDTH = 800;
 const unsigned int rendering::SCR_HEIGHT = 600;
@@ -45,7 +45,7 @@ void rendering::mouse_callback(GLFWwindow* window, double xpos_in, double ypos_i
     if (first_mouse)
     {
         lastx = xpos;
-        lastx = ypos;
+        lasty = ypos;
         first_mouse = false;
     }
 

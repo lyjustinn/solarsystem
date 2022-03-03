@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <iostream>
+
 // implementation modifed from https://github.com/JoeyDeVries/LearnOpenGL
 
 objects::Camera::Camera(glm::vec3 position, glm::vec3 front, glm::vec3 worldUp) :
