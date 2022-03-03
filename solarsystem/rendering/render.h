@@ -5,6 +5,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <string>
+#include <vector>
 
 namespace rendering {
 
@@ -24,8 +26,6 @@ namespace rendering {
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void mouse_callback(GLFWwindow* window, double xpos_in, double ypos_in);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-	
-	GLFWwindow* create_window();
 	GLFWwindow* init_glfw_glad();
 }
 

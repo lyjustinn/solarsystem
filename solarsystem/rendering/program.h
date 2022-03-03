@@ -3,6 +3,7 @@
 
 #include "../objects/camera.h"
 #include "../objects/shader_program.h"
+#include "cube_map.h"
 #include "sphere.h"
 
 #include <glad/glad.h>
@@ -11,9 +12,10 @@
 namespace rendering {
 	class Program {
 	private:
-
-		objects::ShaderProgram shader;
-		rendering::Sphere sphere;
+		rendering::CubeMap m_cube_map;
+		rendering::Sphere m_sphere;
+		objects::ShaderProgram m_sphere_shader;
+		objects::ShaderProgram m_cubemap_shader;
 
 	public:
 		Program();

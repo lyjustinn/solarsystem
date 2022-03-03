@@ -1,5 +1,4 @@
 #include "render.h"
-#include "../objects/camera.h"
 
 #include <iostream>
 
@@ -62,30 +61,6 @@ void rendering::mouse_callback(GLFWwindow* window, double xpos_in, double ypos_i
 void rendering::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     rendering::camera.process_mouse_scroll(static_cast<float>(yoffset));
-}
-
-GLFWwindow* rendering::create_window() {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Solar System", NULL, NULL);
-
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-    }
-    else {
-        glfwMakeContextCurrent(window);
-        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-        glfwSetCursorPosCallback(window, mouse_callback);
-        glfwSetScrollCallback(window, scroll_callback);
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    }
-
-    return window;
 }
 
 GLFWwindow * rendering::init_glfw_glad() {
