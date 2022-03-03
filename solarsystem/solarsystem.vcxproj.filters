@@ -38,9 +38,6 @@
     <ClCompile Include="rendering\render.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\program.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>LibHeaders</Filter>
     </ClCompile>
@@ -48,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="rendering\cube_map.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\program.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,13 +64,13 @@
     <ClInclude Include="rendering\render.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="rendering\program.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="rendering\cube_map.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\program.h">
       <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>

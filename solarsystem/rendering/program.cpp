@@ -10,6 +10,7 @@
 
 rendering::Program::Program():
     m_cube_map("./resources/background.jpg"),
+    m_sphere(16),
     m_sphere_shader("./shaders/v_shader.glsl", "./shaders/f_shader.glsl"),
     m_cubemap_shader("./shaders/cubemap_v_shader.glsl", "./shaders/cubemap_f_shader.glsl") {
 
