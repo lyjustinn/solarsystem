@@ -7,7 +7,7 @@
 namespace rendering {
 	class Sphere {
 	public:
-		Sphere();
+		Sphere(const unsigned int segments = 8);
 
 		void draw_sphere();
 

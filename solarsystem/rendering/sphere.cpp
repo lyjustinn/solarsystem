@@ -8,7 +8,7 @@
 #include <tuple>
 #include <iostream>
 
-rendering::Sphere::Sphere() {
+rendering::Sphere::Sphere(const unsigned int segments) {
     unsigned int vbo;
     glGenVertexArrays(1, &m_vao);
 
@@ -18,7 +18,7 @@ rendering::Sphere::Sphere() {
     std::vector<unsigned int> indices;
 
     std::vector<float> data;
-    const unsigned int segments = 8;
+    
 
     const float cos45 = glm::cos(PI * 0.25f);
 
