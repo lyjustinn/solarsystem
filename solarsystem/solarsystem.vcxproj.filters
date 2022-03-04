@@ -50,6 +50,9 @@
     <ClCompile Include="rendering\program.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\planet.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h">
@@ -73,18 +76,27 @@
     <ClInclude Include="rendering\program.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="rendering\planet.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\v_shader.glsl">
+    <None Include="shaders\star_v_shader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\f_shader.glsl">
+    <None Include="shaders\star_f_shader.glsl">
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\cubemap_v_shader.glsl">
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\cubemap_f_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\planet_f_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\planet_v_shader.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
