@@ -8,6 +8,10 @@
 #include <vector>
 #include <string>
 
+float const N_GRAV = 6.67e-11;
+
+float const TIME_SCALE = 86400.0f;
+
 rendering::Program::Program():
     m_cube_map("./resources/background.jpg"),
     m_sphere(16),
@@ -26,13 +30,14 @@ rendering::Program::Program():
     m_planet_shader.set_vec3("u_star.ambient", glm::vec3(0.1f));
     m_planet_shader.set_vec3("u_star.diffuse", glm::vec3(0.3f));
 
-    // attenuation to a distance of 50
+    // attenuation to a distance of 100
     m_planet_shader.set_float("u_star.constant", 1.0f);
-    m_planet_shader.set_float("u_star.linear", 0.09f);
-    m_planet_shader.set_float("u_star.quadratic", 0.032f);
+    m_planet_shader.set_float("u_star.linear", 0.045f);
+    m_planet_shader.set_float("u_star.quadratic", 0.0075f);
 
-    m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(1.0f), glm::vec3(3.0f, 0.0f, 0.0f));
-    m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 0.0f, -2.0f));
+    m_planets.emplace_back(m_sphere, m_planet_shader, 1.0f, glm::vec3(1.0f), 0.0f, 0.0f, 2.0e30);
+    m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(1.0f, 0.0f, 0.0f), 60e9, 50.0e3, 0.33011e24);
+    m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), 110e9, 35.0e3, 4.867e24);
 }
 
 void rendering::Program::render_frame(GLFWwindow* window) {
@@ -60,8 +65,37 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     m_sphere.draw_sphere();
 
     // draw planets
-    for (rendering::Planet planet : m_planets) {
-        planet.draw_planet(projection, view);
+    // start at i = 1 to skip calculation for star
+    // based on https://en.wikipedia.org/wiki/N-body_simulation
+
+    for (unsigned int i = 1; i < m_planets.size(); i++) {
+
+        glm::vec3 a_g = glm::vec3(0.0f);
+
+
+        for (const rendering::Planet & planet_2 : m_planets) {
+            if (m_planets[i].m_colour == planet_2.m_colour) continue;
+
+            glm::vec3 r = m_planets[i].m_position - planet_2.m_position;
+
+            float r_mag = glm::length(r);
+
+            float accel = -1.0f * N_GRAV * planet_2.m_mass / (r_mag * r_mag);
+
+            r = glm::normalize(r);
+
+            a_g += accel * r;
+        }
+
+        m_planets[i].m_velocity += a_g  * 3600.0f * 12.0f ;
+        //std::cout << a_g.x << ", " << a_g.y << ", " << a_g.z << std::endl;
+        //std::cout << m_planets[i].m_velocity.x << ", " << m_planets[i].m_velocity.y << ", " << m_planets[i].m_velocity.z << std::endl;
+    }
+
+    for (unsigned int i = 1; i < m_planets.size(); i++) {
+        m_planets[i].m_position += m_planets[i].m_velocity * 3600.0f * 12.0f ;
+        std::cout << m_planets[i].m_position.x << ", " << m_planets[i].m_position.y << ", " << m_planets[i].m_position.z << std::endl;
+        m_planets[i].draw_planet(projection, view);
     }
 
     // draw skybox/cubemap

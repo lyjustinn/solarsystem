@@ -1,7 +1,13 @@
 #include "planet.h"
+#include <iostream>
 
-rendering::Planet::Planet(Sphere sphere, objects::ShaderProgram shader_program, float radius, glm::vec3 colour, glm::vec3 position):
-	m_sphere(sphere), m_shader(shader_program), m_radius(radius), m_colour(colour), m_position(position) {
+const float GM = 6.67e-11 * 1.9891e30;
+const float VOL = 3.14159265359f * 4.0f / 3.0f * 5510.0f;
+
+rendering::Planet::Planet(Sphere sphere, objects::ShaderProgram shader_program, float radius, glm::vec3 colour, float position, float velocity, float mass):
+	m_sphere(sphere), m_shader(shader_program), m_radius(radius), m_colour(colour), 
+	m_position(position, 0.0f, 0.0f), m_velocity(0.0f, 0.0f, velocity),
+	m_mass(mass) {
 }
 
 void rendering::Planet::draw_planet(glm::mat4 projection, glm::mat4 view) {
@@ -11,7 +17,8 @@ void rendering::Planet::draw_planet(glm::mat4 projection, glm::mat4 view) {
 	m_shader.set_mat4("u_projection", projection);
 	m_shader.set_mat4("u_view", view);
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, m_position);
+
+	model = glm::translate(model, m_position / 30.0e9f);
 	model = glm::scale(model, glm::vec3(m_radius));
 	m_shader.set_mat4("u_model", model);
 

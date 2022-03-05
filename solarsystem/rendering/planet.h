@@ -15,10 +15,16 @@ namespace rendering {
 
 	public:
 		glm::vec3 m_colour;
-		glm::vec3 m_position;
+		glm::vec3 m_position; // position in meters
+		glm::vec3 m_velocity; // velocity in m/s
+		float m_mass; // mass in kilograms
 
-		Planet(Sphere sphere, objects::ShaderProgram shader_program, float radius, glm::vec3 colour, glm::vec3 position);
+		Planet(Sphere sphere, objects::ShaderProgram shader_program, float radius, glm::vec3 colour, float position, float velocity, float mass);
 		void draw_planet(glm::mat4 projection, glm::mat4 view);
+
+		friend bool operator== (const Planet& p1, const Planet& p2) {
+			return p1.m_colour == p2.m_colour;
+		}
 	};
 }
 
