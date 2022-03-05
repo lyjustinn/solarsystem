@@ -88,10 +88,14 @@ void rendering::Program::render_frame(GLFWwindow* window) {
         //std::cout << m_planets[i].m_velocity.x << ", " << m_planets[i].m_velocity.y << ", " << m_planets[i].m_velocity.z << std::endl;
     }
 
+    m_planet_shader.use();
+    m_planet_shader.set_mat4("u_projection", projection);
+    m_planet_shader.set_mat4("u_view", view);
+
     for (unsigned int i = 1; i < m_planets.size(); i++) {
         m_planets[i].m_position += m_planets[i].m_velocity * rendering::ORBIT_DT ;
         std::cout << m_planets[i].m_position.x << ", " << m_planets[i].m_position.y << ", " << m_planets[i].m_position.z << std::endl;
-        m_planets[i].draw_planet(projection, view);
+        m_planets[i].draw_planet();
     }
 
     // draw skybox/cubemap

@@ -20,7 +20,7 @@ namespace rendering {
 		float m_mass; // mass in kilograms
 
 		Planet(Sphere sphere, objects::ShaderProgram shader_program, float radius, glm::vec3 colour, float position, float velocity, float mass);
-		void draw_planet(glm::mat4 projection, glm::mat4 view);
+		void draw_planet();
 
 		friend bool operator== (const Planet& p1, const Planet& p2) {
 			return p1.m_colour == p2.m_colour;

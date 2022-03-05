@@ -7,14 +7,11 @@ rendering::Planet::Planet(Sphere sphere, objects::ShaderProgram shader_program, 
 	m_mass(mass) {
 }
 
-void rendering::Planet::draw_planet(glm::mat4 projection, glm::mat4 view) {
+void rendering::Planet::draw_planet() {
 	m_shader.use();
 
 	// set transformation matrices
-	m_shader.set_mat4("u_projection", projection);
-	m_shader.set_mat4("u_view", view);
 	glm::mat4 model = glm::mat4(1.0f);
-
 	model = glm::translate(model, m_position / 30.0e9f);
 	model = glm::scale(model, glm::vec3(m_radius));
 	m_shader.set_mat4("u_model", model);
