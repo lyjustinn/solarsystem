@@ -19,6 +19,11 @@ namespace rendering {
 
 	extern const unsigned int SCR_WIDTH;
 	extern const unsigned int SCR_HEIGHT;
+	
+	// CONSTANTS
+	extern const float ORBIT_DT;
+	extern const float N_GRAV;
+	extern const float PI;
 
 	extern objects::Camera camera;
 

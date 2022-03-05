@@ -12,6 +12,10 @@ bool rendering::first_mouse = true;
 const unsigned int rendering::SCR_WIDTH = 800;
 const unsigned int rendering::SCR_HEIGHT = 600;
 
+const float rendering::ORBIT_DT = 3600.0f * 12.0f;
+const float rendering::N_GRAV = 6.67e-11;
+const float rendering::PI = 3.14159265359f;
+
 objects::Camera rendering::camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 // functions

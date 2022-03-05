@@ -8,10 +8,6 @@
 #include <vector>
 #include <string>
 
-float const N_GRAV = 6.67e-11;
-
-float const TIME_SCALE = 86400.0f;
-
 rendering::Program::Program():
     m_cube_map("./resources/background.jpg"),
     m_sphere(16),
@@ -80,20 +76,20 @@ void rendering::Program::render_frame(GLFWwindow* window) {
 
             float r_mag = glm::length(r);
 
-            float accel = -1.0f * N_GRAV * planet_2.m_mass / (r_mag * r_mag);
+            float accel = -1.0f * rendering::N_GRAV * planet_2.m_mass / (r_mag * r_mag);
 
             r = glm::normalize(r);
 
             a_g += accel * r;
         }
 
-        m_planets[i].m_velocity += a_g  * 3600.0f * 12.0f ;
+        m_planets[i].m_velocity += a_g * rendering::ORBIT_DT;
         //std::cout << a_g.x << ", " << a_g.y << ", " << a_g.z << std::endl;
         //std::cout << m_planets[i].m_velocity.x << ", " << m_planets[i].m_velocity.y << ", " << m_planets[i].m_velocity.z << std::endl;
     }
 
     for (unsigned int i = 1; i < m_planets.size(); i++) {
-        m_planets[i].m_position += m_planets[i].m_velocity * 3600.0f * 12.0f ;
+        m_planets[i].m_position += m_planets[i].m_velocity * rendering::ORBIT_DT ;
         std::cout << m_planets[i].m_position.x << ", " << m_planets[i].m_position.y << ", " << m_planets[i].m_position.z << std::endl;
         m_planets[i].draw_planet(projection, view);
     }

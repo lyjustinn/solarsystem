@@ -1,9 +1,6 @@
 #include "planet.h"
 #include <iostream>
 
-const float GM = 6.67e-11 * 1.9891e30;
-const float VOL = 3.14159265359f * 4.0f / 3.0f * 5510.0f;
-
 rendering::Planet::Planet(Sphere sphere, objects::ShaderProgram shader_program, float radius, glm::vec3 colour, float position, float velocity, float mass):
 	m_sphere(sphere), m_shader(shader_program), m_radius(radius), m_colour(colour), 
 	m_position(position, 0.0f, 0.0f), m_velocity(0.0f, 0.0f, velocity),

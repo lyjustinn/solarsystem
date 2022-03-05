@@ -1,4 +1,5 @@
 #include "sphere.h"
+#include "render.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -12,15 +13,13 @@ rendering::Sphere::Sphere(const unsigned int segments) {
     unsigned int vbo;
     glGenVertexArrays(1, &m_vao);
 
-    const float PI = 3.14159265359f;
-
     std::vector<glm::vec3> positions;
     std::vector<unsigned int> indices;
 
     std::vector<float> data;
     
 
-    const float cos45 = glm::cos(PI * 0.25f);
+    const float cos45 = glm::cos(rendering::PI * 0.25f);
 
     for (int y = 0; y < segments; y++) {
 
@@ -78,8 +77,7 @@ void rendering::Sphere::draw_sphere() {
 
 void rendering::Sphere::triangulate(float x, float y, const int segments, std::vector<glm::vec3>& data) {
 
-    const float PI = 3.14159265359f;
-    const float cos45 = glm::cos(PI * 0.25f);
+    const float cos45 = glm::cos(rendering::PI * 0.25f);
 
     float ySeg = (float)y / (float)segments;
     float distance = ySeg / cos45;
