@@ -15,12 +15,24 @@ rendering::Program::Program():
     m_star_shader("./shaders/star_v_shader.glsl", "./shaders/star_f_shader.glsl"),
     m_cubemap_shader("./shaders/cubemap_v_shader.glsl", "./shaders/cubemap_f_shader.glsl") {
 
+    // opengl config
     glEnable(GL_DEPTH_TEST);
+
     m_cubemap_shader.use();
     m_cubemap_shader.set_int("skybox", 0);
 
+    m_planet_shader.use();
+    // set lighting properties
+    m_planet_shader.set_vec3("u_star.ambient", glm::vec3(0.1f));
+    m_planet_shader.set_vec3("u_star.diffuse", glm::vec3(0.3f));
+
+    // attenuation to a distance of 50
+    m_planet_shader.set_float("u_star.constant", 1.0f);
+    m_planet_shader.set_float("u_star.linear", 0.09f);
+    m_planet_shader.set_float("u_star.quadratic", 0.032f);
+
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(1.0f), glm::vec3(3.0f, 0.0f, 0.0f));
-    m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(4.0f, 0.0f, -1.0f));
+    m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 0.0f, -2.0f));
 }
 
 void rendering::Program::render_frame(GLFWwindow* window) {

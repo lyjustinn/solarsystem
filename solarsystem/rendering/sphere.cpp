@@ -30,8 +30,8 @@ rendering::Sphere::Sphere(const unsigned int segments) {
             triangulate(x + 1, y + 1, segments, positions);
 
             triangulate(x, y, segments, positions);
-            triangulate(x + 1, y, segments, positions);
             triangulate(x + 1, y + 1, segments, positions);
+            triangulate(x + 1, y, segments, positions);
         }
 
         triangulate(y, y, segments, positions);

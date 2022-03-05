@@ -15,15 +15,8 @@ void rendering::Planet::draw_planet(glm::mat4 projection, glm::mat4 view) {
 	model = glm::scale(model, glm::vec3(m_radius));
 	m_shader.set_mat4("u_model", model);
 
-	// set lighting properties
+	// set lighting property
 	m_shader.set_vec3("u_colour", m_colour);
-	m_shader.set_vec3("u_star.ambient", glm::vec3(0.1f));
-	m_shader.set_vec3("u_star.diffuse", glm::vec3(0.3f));
-
-	// attenuation to a distance of 65
-	m_shader.set_float("u_star.constant", 1.0f);
-	m_shader.set_float("u_star.linear", 0.07f);
-	m_shader.set_float("u_star.quadratic", 0.017f);
 
 	m_sphere.draw_sphere();
 }
