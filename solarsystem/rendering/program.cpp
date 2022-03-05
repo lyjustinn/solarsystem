@@ -52,7 +52,7 @@ void rendering::Program::render_frame(GLFWwindow* window) {
 
     // draw star
     m_star_shader.use();
-    glm::mat4 projection = glm::perspective(glm::radians(camera.m_zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(camera.m_zoom), (float)scr_width / (float)scr_height, 0.1f, 100.0f);
     glm::mat4 view = camera.get_view_matrix();
     m_star_shader.set_mat4("projection", projection);
     m_star_shader.set_mat4("view", view);

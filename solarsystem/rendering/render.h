@@ -17,8 +17,8 @@ namespace rendering {
 	extern float lasty;
 	extern bool first_mouse;
 
-	extern const unsigned int SCR_WIDTH;
-	extern const unsigned int SCR_HEIGHT;
+	extern unsigned int scr_width;
+	extern unsigned int scr_height;
 	
 	// CONSTANTS
 	extern const float ORBIT_DT;

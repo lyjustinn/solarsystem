@@ -9,8 +9,8 @@ float rendering::lastx = 0.0f;
 float rendering::lasty = 0.0f;
 bool rendering::first_mouse = true;
 
-const unsigned int rendering::SCR_WIDTH = 800;
-const unsigned int rendering::SCR_HEIGHT = 600;
+unsigned int rendering::scr_width = 800;
+unsigned int rendering::scr_height = 600;
 
 const float rendering::ORBIT_DT = 3600.0f * 12.0f;
 const float rendering::N_GRAV = 6.67e-11;
@@ -40,6 +40,8 @@ void rendering::process_input(GLFWwindow* window)
 
 void rendering::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
+    scr_height = height;
+    scr_width = width;
 }
 
 void rendering::mouse_callback(GLFWwindow* window, double xpos_in, double ypos_in)
@@ -73,7 +75,7 @@ GLFWwindow * rendering::init_glfw_glad() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Solar System", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(scr_width, scr_height, "Solar System", NULL, NULL);
 
     if (window == NULL)
     {
