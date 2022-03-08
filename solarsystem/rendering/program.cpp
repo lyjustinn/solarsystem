@@ -83,7 +83,7 @@ void rendering::Program::render_frame(GLFWwindow* window) {
             a_g += accel * r;
         }
 
-        m_planets[i].m_velocity += a_g * rendering::ORBIT_DT;
+        m_planets[i].m_velocity += a_g * rendering::ORBIT_DT * delta_time;
         //std::cout << a_g.x << ", " << a_g.y << ", " << a_g.z << std::endl;
         //std::cout << m_planets[i].m_velocity.x << ", " << m_planets[i].m_velocity.y << ", " << m_planets[i].m_velocity.z << std::endl;
     }
@@ -93,8 +93,8 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     m_planet_shader.set_mat4("u_view", view);
 
     for (unsigned int i = 1; i < m_planets.size(); i++) {
-        m_planets[i].m_position += m_planets[i].m_velocity * rendering::ORBIT_DT ;
-        std::cout << m_planets[i].m_position.x << ", " << m_planets[i].m_position.y << ", " << m_planets[i].m_position.z << std::endl;
+        m_planets[i].m_position += m_planets[i].m_velocity * rendering::ORBIT_DT * delta_time;
+        //std::cout << m_planets[i].m_position.x << ", " << m_planets[i].m_position.y << ", " << m_planets[i].m_position.z << std::endl;
         m_planets[i].draw_planet();
     }
 

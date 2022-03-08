@@ -16,6 +16,7 @@ namespace rendering {
 	extern float lastx;
 	extern float lasty;
 	extern bool first_mouse;
+	extern bool left_mb_down;
 
 	extern unsigned int scr_width;
 	extern unsigned int scr_height;
@@ -31,6 +32,7 @@ namespace rendering {
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void mouse_callback(GLFWwindow* window, double xpos_in, double ypos_in);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 	GLFWwindow* init_glfw_glad();
 }
 

@@ -8,11 +8,12 @@ float rendering::last_frame = 0.0f;
 float rendering::lastx = 0.0f;
 float rendering::lasty = 0.0f;
 bool rendering::first_mouse = true;
+bool rendering::left_mb_down = false;
 
 unsigned int rendering::scr_width = 800;
 unsigned int rendering::scr_height = 600;
 
-const float rendering::ORBIT_DT = 3600.0f * 12.0f;
+const float rendering::ORBIT_DT = 3600.0f * 48.0f;
 const float rendering::N_GRAV = 6.67e-11;
 const float rendering::PI = 3.14159265359f;
 
@@ -44,29 +45,40 @@ void rendering::framebuffer_size_callback(GLFWwindow* window, int width, int hei
     scr_width = width;
 }
 
-void rendering::mouse_callback(GLFWwindow* window, double xpos_in, double ypos_in)
-{
-    float xpos = static_cast<float>(xpos_in);
-    float ypos = static_cast<float>(ypos_in);
-    if (first_mouse)
-    {
+void rendering::mouse_callback(GLFWwindow* window, double xpos_in, double ypos_in){ 
+    if (left_mb_down) {
+        float xpos = static_cast<float>(xpos_in);
+        float ypos = static_cast<float>(ypos_in);
+        if (first_mouse)
+        {
+            lastx = xpos;
+            lasty = ypos;
+            first_mouse = false;
+        }
+
+        float xoffset = xpos - lastx;
+        float yoffset = lasty - ypos; // reversed since y-coordinates go from bottom to top
+
         lastx = xpos;
         lasty = ypos;
-        first_mouse = false;
-    }
 
-    float xoffset = xpos - lastx;
-    float yoffset = lasty - ypos; // reversed since y-coordinates go from bottom to top
-
-    lastx = xpos;
-    lasty = ypos;
-
-    rendering::camera.process_mouse_movement(xoffset, yoffset);
+        rendering::camera.process_mouse_movement(xoffset, yoffset);
+    } else
+        first_mouse = true;
 }
 
 void rendering::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     rendering::camera.process_mouse_scroll(static_cast<float>(yoffset));
+}
+
+void rendering::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+        left_mb_down = true;
+    else
+        left_mb_down = false;
+
+    std::cout << left_mb_down << std::endl;
 }
 
 GLFWwindow * rendering::init_glfw_glad() {
@@ -87,7 +99,8 @@ GLFWwindow * rendering::init_glfw_glad() {
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
         glfwSetCursorPosCallback(window, mouse_callback);
         glfwSetScrollCallback(window, scroll_callback);
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetMouseButtonCallback(window, mouse_button_callback);
+        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
