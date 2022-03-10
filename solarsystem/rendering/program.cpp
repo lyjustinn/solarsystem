@@ -13,16 +13,19 @@ rendering::Program::Program():
     m_sphere(16),
     m_planet_shader("./shaders/planet_v_shader.glsl", "./shaders/planet_f_shader.glsl"),
     m_star_shader("./shaders/star_v_shader.glsl", "./shaders/star_f_shader.glsl"),
-    m_cubemap_shader("./shaders/cubemap_v_shader.glsl", "./shaders/cubemap_f_shader.glsl") {
+    m_cubemap_shader("./shaders/cubemap_v_shader.glsl", "./shaders/cubemap_f_shader.glsl"),
+    m_ui_shader("./shaders/ui_v_shader.glsl", "./shaders/ui_f_shader.glsl")
+{
 
     // opengl config
     glEnable(GL_DEPTH_TEST);
 
+    // init skybox texture
     m_cubemap_shader.use();
     m_cubemap_shader.set_int("skybox", 0);
 
-    m_planet_shader.use();
     // set lighting properties
+    m_planet_shader.use();
     m_planet_shader.set_vec3("u_star.ambient", glm::vec3(0.1f));
     m_planet_shader.set_vec3("u_star.diffuse", glm::vec3(0.3f));
 
@@ -31,9 +34,13 @@ rendering::Program::Program():
     m_planet_shader.set_float("u_star.linear", 0.045f);
     m_planet_shader.set_float("u_star.quadratic", 0.0075f);
 
+    // init planets
     m_planets.emplace_back(m_sphere, m_planet_shader, 1.0f, glm::vec3(1.0f), 0.0f, 0.0f, 2.0e30);
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(1.0f, 0.0f, 0.0f), 60e9, 50.0e3, 0.33011e24);
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), 110e9, 35.0e3, 4.867e24);
+
+    // init UI
+    m_ui_elements.emplace_back(0.25, 0.75, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.5f), m_quad, m_ui_shader);
 }
 
 void rendering::Program::render_frame(GLFWwindow* window) {
@@ -96,6 +103,11 @@ void rendering::Program::render_frame(GLFWwindow* window) {
         m_planets[i].m_position += m_planets[i].m_velocity * rendering::ORBIT_DT * delta_time;
         //std::cout << m_planets[i].m_position.x << ", " << m_planets[i].m_position.y << ", " << m_planets[i].m_position.z << std::endl;
         m_planets[i].draw_planet();
+    }
+
+    // draw ui
+    for (ui::Rectangle ui_element : m_ui_elements) {
+        ui_element.draw();
     }
 
     // draw skybox/cubemap

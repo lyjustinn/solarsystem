@@ -6,6 +6,8 @@
 #include "cube_map.h"
 #include "sphere.h"
 #include "planet.h"
+#include "quad.h"
+#include "../ui/rectangle.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -13,14 +15,20 @@
 namespace rendering {
 	class Program {
 	private:
+		// rendering primitives
 		rendering::CubeMap m_cube_map;
 		rendering::Sphere m_sphere;
+		rendering::Quad m_quad;
 
+		// shader programs
 		objects::ShaderProgram m_planet_shader;
 		objects::ShaderProgram m_star_shader;
 		objects::ShaderProgram m_cubemap_shader;
+		objects::ShaderProgram m_ui_shader;
 
+		// objects to render
 		std::vector<Planet> m_planets;
+		std::vector<ui::Rectangle> m_ui_elements;
 
 	public:
 		Program();
