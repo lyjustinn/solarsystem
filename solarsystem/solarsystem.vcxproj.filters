@@ -79,6 +79,9 @@
     <ClInclude Include="rendering\planet.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="objects\mouse_picker.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\star_v_shader.glsl">

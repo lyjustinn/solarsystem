@@ -10,8 +10,8 @@ float rendering::lasty = 0.0f;
 bool rendering::first_mouse = true;
 bool rendering::left_mb_down = false;
 
-unsigned int rendering::scr_width = 800;
-unsigned int rendering::scr_height = 600;
+unsigned int rendering::scr_width = 1280;
+unsigned int rendering::scr_height = 720;
 
 const float rendering::ORBIT_DT = 3600.0f * 48.0f;
 const float rendering::N_GRAV = 6.67e-11;
@@ -73,12 +73,15 @@ void rendering::scroll_callback(GLFWwindow* window, double xoffset, double yoffs
 }
 
 void rendering::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
         left_mb_down = true;
-    else
-        left_mb_down = false;
-
-    std::cout << left_mb_down << std::endl;
+        return;
+    }
+    else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+        std::cout << "released button" << std::endl;
+    }
+        
+    left_mb_down = false;
 }
 
 GLFWwindow * rendering::init_glfw_glad() {
