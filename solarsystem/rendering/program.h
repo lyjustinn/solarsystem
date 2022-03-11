@@ -7,10 +7,12 @@
 #include "sphere.h"
 #include "planet.h"
 #include "quad.h"
-#include "../ui/rectangle.h"
+#include "../ui/element.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <memory>
 
 namespace rendering {
 	class Program {
@@ -25,10 +27,11 @@ namespace rendering {
 		objects::ShaderProgram m_star_shader;
 		objects::ShaderProgram m_cubemap_shader;
 		objects::ShaderProgram m_ui_shader;
+		objects::ShaderProgram m_text_shader;
 
 		// objects to render
 		std::vector<Planet> m_planets;
-		std::vector<ui::Rectangle> m_ui_elements;
+		std::vector<std::unique_ptr<ui::Element>> m_ui_elements;
 
 	public:
 		Program();

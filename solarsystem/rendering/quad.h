@@ -10,7 +10,7 @@ namespace rendering {
 
 	public:
 		Quad();
-
+		void bind_vao();
 		void draw();
 	};
 }

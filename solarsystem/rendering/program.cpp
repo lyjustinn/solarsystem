@@ -2,6 +2,8 @@
 #include "sphere.h"
 #include "../objects/shader_program.h"
 #include "../objects/camera.h"
+#include "../ui/rectangle.h"
+#include "../ui/text_box.h"
 #include "program.h"
 
 #include <iostream>
@@ -14,7 +16,8 @@ rendering::Program::Program():
     m_planet_shader("./shaders/planet_v_shader.glsl", "./shaders/planet_f_shader.glsl"),
     m_star_shader("./shaders/star_v_shader.glsl", "./shaders/star_f_shader.glsl"),
     m_cubemap_shader("./shaders/cubemap_v_shader.glsl", "./shaders/cubemap_f_shader.glsl"),
-    m_ui_shader("./shaders/ui_v_shader.glsl", "./shaders/ui_f_shader.glsl")
+    m_ui_shader("./shaders/ui_v_shader.glsl", "./shaders/ui_f_shader.glsl"),
+    m_text_shader("./shaders/text_v_shader.glsl", "./shaders/text_f_shader.glsl")
 {
 
     // opengl config
@@ -40,7 +43,8 @@ rendering::Program::Program():
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), 110e9, 35.0e3, 4.867e24);
 
     // init UI
-    m_ui_elements.emplace_back(0.25, 0.75, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.5f), m_quad, m_ui_shader);
+    m_ui_elements.emplace_back(new ui::Rectangle(0.25, 0.75, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.25f, 0.0), m_quad, m_ui_shader));
+    m_ui_elements.emplace_back(new ui::TextBox(0.0f, 0.0f, glm::vec3(1.0f), glm::vec3(0.75f), m_quad, m_text_shader, "./resources/arial.ttf", "test", 1.0f));
 }
 
 void rendering::Program::render_frame(GLFWwindow* window) {
@@ -106,8 +110,8 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     }
 
     // draw ui
-    for (ui::Rectangle ui_element : m_ui_elements) {
-        ui_element.draw();
+    for (unsigned int i = 0; i < m_ui_elements.size(); i++) {
+        m_ui_elements[i]->draw();
     }
 
     // draw skybox/cubemap
