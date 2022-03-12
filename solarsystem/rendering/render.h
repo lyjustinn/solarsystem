@@ -17,6 +17,10 @@ namespace rendering {
 	extern float lasty; // last y position of mouse while dragging
 	extern bool first_mouse;
 	extern bool left_mb_down;
+	extern float clickx;
+	extern float clicky;
+	extern float releasex;
+	extern float releasey;
 
 	extern bool map_mode;
 

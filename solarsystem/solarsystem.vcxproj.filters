@@ -163,5 +163,8 @@
     <Font Include="resources\arial.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+    <Font Include="resources\Roboto-Medium.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

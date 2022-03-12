@@ -10,13 +10,10 @@ namespace ui {
 	
 		objects::ShaderProgram m_bg_shader;
 		glm::vec3 m_bg_colour;
-		bool m_press;
-		bool m_release;
 		float m_pad;
 
-		virtual void callback();
-
 		void draw() override;
+		void callback() override;
 	};
 }
 

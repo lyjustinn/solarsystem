@@ -9,6 +9,10 @@ float rendering::lastx = 0.0f;
 float rendering::lasty = 0.0f;
 bool rendering::first_mouse = true;
 bool rendering::left_mb_down = false;
+float rendering::clickx = 0.0f;
+float rendering::clicky = 0.0f;
+float rendering::releasex = 0.0f;
+float rendering::releasey = 0.0f;
 
 bool rendering::map_mode = false;
 
@@ -84,13 +88,34 @@ void rendering::scroll_callback(GLFWwindow* window, double xoffset, double yoffs
 void rendering::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
         left_mb_down = true;
-        return;
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+
+        xpos -= scr_width / 2.0f;
+        xpos /= scr_width / 2.0f;
+        ypos = scr_height - ypos;
+        ypos -= scr_height / 2.0f;
+        ypos /= scr_height / 2.0f;
+
+        clickx = xpos, clicky = ypos;
+        releasex = -2.0f, releasey = -2.0f;
     }
     else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-        std::cout << "released button" << std::endl;
+        left_mb_down = false;
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+
+        xpos -= scr_width / 2.0f;
+        xpos /= scr_width / 2.0f;
+        ypos = scr_height - ypos;
+        ypos -= scr_height / 2.0f;
+        ypos /= scr_height / 2.0f;
+
+        releasex = xpos, releasey = ypos;
     }
         
-    left_mb_down = false;
+    std::cout << clickx << ", " << clicky << std::endl;
+    std::cout << releasex << ", " << releasey << std::endl;
 }
 
 GLFWwindow * rendering::init_glfw_glad() {

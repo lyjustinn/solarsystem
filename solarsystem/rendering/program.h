@@ -33,6 +33,7 @@ namespace rendering {
 		std::vector<Planet> m_planets;
 		std::vector<std::unique_ptr<ui::Element>> m_ui_elements;
 
+		void poll_inputs();
 	public:
 		Program();
 		void render_frame(GLFWwindow*);

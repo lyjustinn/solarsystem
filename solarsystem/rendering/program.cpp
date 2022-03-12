@@ -44,9 +44,9 @@ rendering::Program::Program():
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), 110e9, 35.0e3, 4.867e24);
 
     // init UI
-    m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.6f, 0.25f, 0.0), m_quad, m_ui_shader));
-    m_ui_elements.emplace_back(new ui::TextBox( glm::vec3(1.0f), glm::vec3(0.72f, 0.9f, 0.0f), m_quad, m_text_shader, "./resources/arial.ttf", "Add Planet", 0.4f));
-    m_ui_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.72f, 0.6f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/arial.ttf", "Add", 0.4f));
+    m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.09f, 0.071f, 0.098f), glm::vec3(0.6f, 0.25f, 0.0), m_quad, m_ui_shader));
+    m_ui_elements.emplace_back(new ui::TextBox( glm::vec3(1.0f), glm::vec3(0.72f, 0.9f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Add Planet", 0.4f));
+    m_ui_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.72f, 0.6f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", "Add", 0.4f));
     //m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.72f, 0.85f, 0.0f), m_quad, m_ui_shader));
 }
 
@@ -59,9 +59,10 @@ void rendering::Program::render_frame(GLFWwindow* window) {
 
     // input
     process_input(window);
+    poll_inputs();
 
     // render
-    glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // draw star
@@ -123,9 +124,21 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     m_cubemap_shader.set_mat4("view", view);
     m_cubemap_shader.set_mat4("projection", projection);
 
-    m_cube_map.draw_cubemap();
+    //m_cube_map.draw_cubemap();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     glfwSwapBuffers(window);
     glfwPollEvents();
+}
+
+void rendering::Program::poll_inputs() {
+    for (unsigned int i = 0; i < m_ui_elements.size(); i++) {
+        m_ui_elements[i]->check_focus(clickx, clicky, releasex, releasey);
+        m_ui_elements[i]->callback();
+    }
+
+    if (releasex != -2.0f && releasey != -2.0f) {
+        clickx = -2.0f, clicky = -2.0f;
+        releasex = -2.0f, releasey = -2.0f;
+    }
 }
