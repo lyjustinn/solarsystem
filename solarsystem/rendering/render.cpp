@@ -10,6 +10,8 @@ float rendering::lasty = 0.0f;
 bool rendering::first_mouse = true;
 bool rendering::left_mb_down = false;
 
+bool rendering::map_mode = false;
+
 unsigned int rendering::scr_width = 1280;
 unsigned int rendering::scr_height = 720;
 
@@ -22,8 +24,15 @@ objects::Camera rendering::camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0
 // functions
 void rendering::process_input(GLFWwindow* window)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS && !map_mode) {
+        map_mode = true;
+        camera.toggle_map_mode();
+    } else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS && map_mode) {
+        map_mode = false;
+        camera.toggle_map_mode();
+    }
+
+    //std::cout << "Map Mode: " << map_mode << std::endl;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         rendering::camera.process_keyboard_input(objects::CameraDirection::FORWARD, delta_time);
@@ -46,7 +55,7 @@ void rendering::framebuffer_size_callback(GLFWwindow* window, int width, int hei
 }
 
 void rendering::mouse_callback(GLFWwindow* window, double xpos_in, double ypos_in){ 
-    if (left_mb_down) {
+    if (left_mb_down && !map_mode) {
         float xpos = static_cast<float>(xpos_in);
         float ypos = static_cast<float>(ypos_in);
         if (first_mouse)

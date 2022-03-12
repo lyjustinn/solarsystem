@@ -13,10 +13,12 @@ namespace rendering {
 	extern float delta_time;
 	extern float last_frame;
 
-	extern float lastx;
-	extern float lasty;
+	extern float lastx; // last x position of mouse while dragging
+	extern float lasty; // last y position of mouse while dragging
 	extern bool first_mouse;
 	extern bool left_mb_down;
+
+	extern bool map_mode;
 
 	extern unsigned int scr_width;
 	extern unsigned int scr_height;

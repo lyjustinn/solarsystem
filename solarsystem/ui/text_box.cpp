@@ -6,15 +6,22 @@
 
 #include <iostream>
 
-ui::TextBox::TextBox(float width, float height, glm::vec3 colour, glm::vec3 position, rendering::Quad& quad, 
+ui::TextBox::TextBox(glm::vec3 colour, glm::vec3 position, rendering::Quad& quad, 
 	objects::ShaderProgram& shader, const char * font, std::string text, float scale):
-	Element(width, height, colour, position, quad, shader), m_glyphs(ui::load_font(font))
+	Element(0, 0, colour, position, quad, shader), m_glyphs(ui::load_font(font))
     , m_text(text), m_scale(scale) {
 	
-}
+    std::string::const_iterator c;
+    for (c = m_text.begin(); c != m_text.end(); c++) {
+        Glyph ch = m_glyphs[*c];
 
-void ui::TextBox::render_text() {
-	
+        float h = ch.height * m_scale;
+
+        m_width += ((ch.advance >> 6)) * m_scale;
+        m_height = std::max(m_height, h);
+    }
+    m_width /= rendering::scr_width / 2.0f;
+    m_height /= rendering::scr_height / 2.0f;
 }
 
 void ui::TextBox::draw() {
@@ -25,8 +32,8 @@ void ui::TextBox::draw() {
     glActiveTexture(GL_TEXTURE0);
     m_quad.bind_vao();
 
-    float x = m_position.x * (float)rendering::scr_width;
-    float y = m_position.y * (float)rendering::scr_height;
+    float x = (rendering::scr_width + m_position.x * (float)rendering::scr_width)/2.0f;
+    float y = (rendering::scr_height + m_position.y * (float)rendering::scr_height)/2.0f;
 
     std::string::const_iterator c;
     for (c = m_text.begin(); c != m_text.end(); c++) {
@@ -45,8 +52,6 @@ void ui::TextBox::draw() {
         glDepthFunc(GL_ALWAYS);
         m_shader.use();
         glm::mat4 model = glm::mat4(1.0f);
-
-        //std::cout << xpos << ", " << ypos << " scale: " << (ch.advance >> 6) * m_scale << std::endl;
 
         model = glm::translate(model, glm::vec3(xpos, ypos, 0.0f));
         model = glm::scale(model, glm::vec3(w, h, 0.0f));

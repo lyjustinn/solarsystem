@@ -71,6 +71,9 @@
     <ClCompile Include="ui\element.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="ui\button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h">
@@ -113,6 +116,9 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="ui\element.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\button.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

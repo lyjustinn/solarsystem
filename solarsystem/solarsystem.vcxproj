@@ -153,6 +153,7 @@
     <ClCompile Include="rendering\render.cpp" />
     <ClCompile Include="rendering\sphere.cpp" />
     <ClCompile Include="stb.cpp" />
+    <ClCompile Include="ui\button.cpp" />
     <ClCompile Include="ui\element.cpp" />
     <ClCompile Include="ui\glyph.cpp" />
     <ClCompile Include="ui\rectangle.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="rendering\render.h" />
     <ClInclude Include="rendering\sphere.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="ui\button.h" />
     <ClInclude Include="ui\element.h" />
     <ClInclude Include="ui\glyph.h" />
     <ClInclude Include="ui\rectangle.h" />

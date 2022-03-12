@@ -4,6 +4,7 @@
 #include "../objects/camera.h"
 #include "../ui/rectangle.h"
 #include "../ui/text_box.h"
+#include "../ui/button.h"
 #include "program.h"
 
 #include <iostream>
@@ -43,8 +44,10 @@ rendering::Program::Program():
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), 110e9, 35.0e3, 4.867e24);
 
     // init UI
-    m_ui_elements.emplace_back(new ui::Rectangle(0.25, 0.75, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.25f, 0.0), m_quad, m_ui_shader));
-    m_ui_elements.emplace_back(new ui::TextBox(0.0f, 0.0f, glm::vec3(1.0f), glm::vec3(0.75f), m_quad, m_text_shader, "./resources/arial.ttf", "test", 1.0f));
+    m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.6f, 0.25f, 0.0), m_quad, m_ui_shader));
+    m_ui_elements.emplace_back(new ui::TextBox( glm::vec3(1.0f), glm::vec3(0.72f, 0.9f, 0.0f), m_quad, m_text_shader, "./resources/arial.ttf", "Add Planet", 0.4f));
+    m_ui_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.72f, 0.6f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/arial.ttf", "Add", 0.4f));
+    //m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.72f, 0.85f, 0.0f), m_quad, m_ui_shader));
 }
 
 void rendering::Program::render_frame(GLFWwindow* window) {
