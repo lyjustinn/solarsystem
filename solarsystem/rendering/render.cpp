@@ -16,18 +16,22 @@ float rendering::releasey = 0.0f;
 
 bool rendering::map_mode = false;
 
+int rendering::input_char = -1;
+
 unsigned int rendering::scr_width = 1280;
 unsigned int rendering::scr_height = 720;
 
 const float rendering::ORBIT_DT = 3600.0f * 48.0f;
 const float rendering::N_GRAV = 6.67e-11;
 const float rendering::PI = 3.14159265359f;
+const float rendering::INVALID_COOR = -2.0f;
 
 objects::Camera rendering::camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 // functions
-void rendering::process_input(GLFWwindow* window)
+void rendering::update_camera(GLFWwindow* window)
 {
+
     if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS && !map_mode) {
         map_mode = true;
         camera.toggle_map_mode();
@@ -35,8 +39,6 @@ void rendering::process_input(GLFWwindow* window)
         map_mode = false;
         camera.toggle_map_mode();
     }
-
-    //std::cout << "Map Mode: " << map_mode << std::endl;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         rendering::camera.process_keyboard_input(objects::CameraDirection::FORWARD, delta_time);
@@ -118,6 +120,12 @@ void rendering::mouse_button_callback(GLFWwindow* window, int button, int action
     std::cout << releasex << ", " << releasey << std::endl;
 }
 
+void rendering::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if ((GLFW_KEY_0 <= key && GLFW_KEY_9 >= key || key == GLFW_KEY_PERIOD || key == GLFW_KEY_BACKSPACE) && (action == GLFW_PRESS || action == GLFW_REPEAT))
+        input_char = key;
+    else input_char = -1;
+}
+
 GLFWwindow * rendering::init_glfw_glad() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -137,6 +145,7 @@ GLFWwindow * rendering::init_glfw_glad() {
         glfwSetCursorPosCallback(window, mouse_callback);
         glfwSetScrollCallback(window, scroll_callback);
         glfwSetMouseButtonCallback(window, mouse_button_callback);
+        glfwSetKeyCallback(window, key_callback);
         //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

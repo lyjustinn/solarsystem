@@ -8,6 +8,7 @@
 #include "planet.h"
 #include "quad.h"
 #include "../ui/element.h"
+#include "../ui/button.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -17,6 +18,7 @@
 namespace rendering {
 	class Program {
 	private:
+
 		// rendering primitives
 		rendering::CubeMap m_cube_map;
 		rendering::Sphere m_sphere;
@@ -32,8 +34,9 @@ namespace rendering {
 		// objects to render
 		std::vector<Planet> m_planets;
 		std::vector<std::unique_ptr<ui::Element>> m_ui_elements;
+		std::vector<std::unique_ptr<ui::Button>> m_input_elements;
 
-		void poll_inputs();
+		void poll_inputs(GLFWwindow *);
 	public:
 		Program();
 		void render_frame(GLFWwindow*);

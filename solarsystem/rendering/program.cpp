@@ -5,6 +5,7 @@
 #include "../ui/rectangle.h"
 #include "../ui/text_box.h"
 #include "../ui/button.h"
+#include "../ui/text_field.h"
 #include "program.h"
 
 #include <iostream>
@@ -46,7 +47,8 @@ rendering::Program::Program():
     // init UI
     m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.09f, 0.071f, 0.098f), glm::vec3(0.6f, 0.25f, 0.0), m_quad, m_ui_shader));
     m_ui_elements.emplace_back(new ui::TextBox( glm::vec3(1.0f), glm::vec3(0.72f, 0.9f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Add Planet", 0.4f));
-    m_ui_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.72f, 0.6f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", "Add", 0.4f));
+    m_input_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.72f, 0.6f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", "Add", 0.4f));
+    m_input_elements.emplace_back(new ui::TextField(glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.72f, 0.7f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.4f));
     //m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.72f, 0.85f, 0.0f), m_quad, m_ui_shader));
 }
 
@@ -58,8 +60,7 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     last_frame = currentFrame;
 
     // input
-    process_input(window);
-    poll_inputs();
+    poll_inputs(window);
 
     // render
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -118,6 +119,10 @@ void rendering::Program::render_frame(GLFWwindow* window) {
         m_ui_elements[i]->draw();
     }
 
+    for (unsigned int i = 0; i < m_input_elements.size(); i++) {
+        m_input_elements[i]->draw();
+    }
+
     // draw skybox/cubemap
     m_cubemap_shader.use();
     view = glm::mat4(glm::mat3(camera.get_view_matrix()));
@@ -131,14 +136,75 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     glfwPollEvents();
 }
 
-void rendering::Program::poll_inputs() {
-    for (unsigned int i = 0; i < m_ui_elements.size(); i++) {
-        m_ui_elements[i]->check_focus(clickx, clicky, releasex, releasey);
-        m_ui_elements[i]->callback();
+void rendering::Program::poll_inputs(GLFWwindow* window) {
+    for (unsigned int i = 0; i < m_input_elements.size(); i++) {
+        m_input_elements[i]->check_focus(clickx, clicky, releasex, releasey);
+        m_input_elements[i]->callback();
     }
 
-    if (releasex != -2.0f && releasey != -2.0f) {
-        clickx = -2.0f, clicky = -2.0f;
-        releasex = -2.0f, releasey = -2.0f;
+    if (m_input_elements[1]->check_focus(clickx, clicky, releasex, releasey)) {
+
+
+        std::cout << input_char << std::endl;
+
+        if (input_char == GLFW_KEY_0)
+            m_input_elements[1]->m_text.push_back('0');
+        else if (input_char == GLFW_KEY_1)
+            m_input_elements[1]->m_text.push_back('1');
+        else if (input_char == GLFW_KEY_2)
+            m_input_elements[1]->m_text.push_back('2');
+        else if (input_char == GLFW_KEY_3)
+            m_input_elements[1]->m_text.push_back('3');
+        else if (input_char == GLFW_KEY_4)
+            m_input_elements[1]->m_text.push_back('4');
+        else if (input_char == GLFW_KEY_5)
+            m_input_elements[1]->m_text.push_back('5');
+        else if (input_char == GLFW_KEY_6)
+            m_input_elements[1]->m_text.push_back('6');
+        else if (input_char == GLFW_KEY_7)
+            m_input_elements[1]->m_text.push_back('7');
+        else if (input_char == GLFW_KEY_8)
+            m_input_elements[1]->m_text.push_back('8');
+        else if (input_char == GLFW_KEY_9)
+            m_input_elements[1]->m_text.push_back('9');
+        else if (input_char == GLFW_KEY_PERIOD)
+            m_input_elements[1]->m_text.push_back('.');
+        else if (input_char == GLFW_KEY_BACKSPACE && m_input_elements[1]->m_text.length() > 0)
+            m_input_elements[1]->m_text.pop_back();
+
+        input_char = -1;
+
+        /*if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('0');
+        else if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('1');
+        else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('2');
+        else if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('3');
+        else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('4');
+        else if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('5');
+        else if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('6');
+        else if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('7');
+        else if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('8');
+        else if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('9');
+        else if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)
+            m_input_elements[1]->m_text.push_back('.');
+        else if (glfwGetKey(window, GLFW_KEY_BACKSPACE) == GLFW_PRESS && m_input_elements[1]->m_text.length() > 0)
+            m_input_elements[1]->m_text.pop_back();*/
+    }
+    else {
+        update_camera(window);
+    }
+
+    if (releasex != rendering::INVALID_COOR && releasey != rendering::INVALID_COOR) {
+        clickx = rendering::INVALID_COOR, clicky = rendering::INVALID_COOR;
+        releasex = rendering::INVALID_COOR, releasey = rendering::INVALID_COOR;
     }
 }

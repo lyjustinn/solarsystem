@@ -21,8 +21,6 @@ namespace ui {
 		Element(float width, float height, glm::vec3 colour, glm::vec3 position, rendering::Quad& quad, objects::ShaderProgram& shader);
 
 		virtual void draw();
-		virtual void callback();
-		virtual void check_focus(float clickx, float clicky, float releasex, float releasey);
 	};
 }
 

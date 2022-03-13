@@ -158,6 +158,7 @@
     <ClCompile Include="ui\glyph.cpp" />
     <ClCompile Include="ui\rectangle.cpp" />
     <ClCompile Include="ui\text_box.cpp" />
+    <ClCompile Include="ui\text_field.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="ui\glyph.h" />
     <ClInclude Include="ui\rectangle.h" />
     <ClInclude Include="ui\text_box.h" />
+    <ClInclude Include="ui\text_field.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\cubemap_f_shader.glsl" />

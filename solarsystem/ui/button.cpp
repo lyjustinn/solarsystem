@@ -28,6 +28,20 @@ void ui::Button::draw() {
 	TextBox::draw();
 }
 
+bool ui::Button::check_focus(float clickx, float clicky, float releasex, float releasey) {
+	if (clickx >= m_position.x - m_width / 3.0f && clickx <= m_position.x + m_width * 2.0f/3.0f && clicky >= m_position.y - m_pad * 2.0f && clicky <= m_position.y - m_pad * 2.0f + m_height) {
+		m_press = true;
+	}
+	else m_press = false;
+
+	if (releasex >= m_position.x - m_width / 3.0f && releasex <= m_position.x + m_width * 2.0f / 3.0f && releasey >= m_position.y - m_pad * 2.0f && releasey <= m_position.y - m_pad * 2.0f + m_height) {
+		m_release = m_release;
+	}
+	else m_press = false;
+
+	return (m_press && m_release);
+}
+
 void ui::Button::callback() {
 	if (!m_press && !m_release) return;
 

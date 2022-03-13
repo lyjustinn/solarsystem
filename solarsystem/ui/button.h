@@ -12,8 +12,9 @@ namespace ui {
 		glm::vec3 m_bg_colour;
 		float m_pad;
 
-		void draw() override;
-		void callback() override;
+		virtual void draw() override;
+		virtual void callback();
+		virtual bool check_focus(float clickx, float clicky, float releasex, float releasey);
 	};
 }
 
