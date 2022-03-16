@@ -6,7 +6,7 @@ ui::Button::Button(glm::vec3 colour, glm::vec3 bg_colour, glm::vec3 position, re
 	objects::ShaderProgram& shader, objects::ShaderProgram& bg_shader,  const char* font, std::string text, float scale):
 	TextBox(colour, position, quad, shader, font, text, scale), m_bg_shader(bg_shader), m_bg_colour(bg_colour)
 {
-	m_pad = m_width / m_text.length();
+	m_pad = m_text.length() > 0 ? m_width / m_text.length() : 0;
 	m_width *= 3.0f;
 	m_height += m_pad * 4.0f;
 }
@@ -35,15 +35,15 @@ bool ui::Button::check_focus(float clickx, float clicky, float releasex, float r
 	else m_press = false;
 
 	if (releasex >= m_position.x - m_width / 3.0f && releasex <= m_position.x + m_width * 2.0f / 3.0f && releasey >= m_position.y - m_pad * 2.0f && releasey <= m_position.y - m_pad * 2.0f + m_height) {
-		m_release = m_release;
+		m_release = true;
 	}
-	else m_press = false;
+	else m_release = false;
 
 	return (m_press && m_release);
 }
 
 void ui::Button::callback() {
-	if (!m_press && !m_release) return;
+	if (!m_press || !m_release) return;
 
 	std::cout << "button was clicked" << std::endl;
 	

@@ -37,6 +37,7 @@ namespace rendering {
 		std::vector<std::unique_ptr<ui::Button>> m_input_elements;
 
 		void poll_inputs(GLFWwindow *);
+		void add_planet();
 	public:
 		Program();
 		void render_frame(GLFWwindow*);

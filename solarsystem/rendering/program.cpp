@@ -43,12 +43,29 @@ rendering::Program::Program():
     m_planets.emplace_back(m_sphere, m_planet_shader, 1.0f, glm::vec3(1.0f), 0.0f, 0.0f, 2.0e30);
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(1.0f, 0.0f, 0.0f), 60e9, 50.0e3, 0.33011e24);
     m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 1.0f, 0.0f), 110e9, 35.0e3, 4.867e24);
+    //m_planets.emplace_back(m_sphere, m_planet_shader, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f), 150e9, 29.78e3, 5.972e24);
 
     // init UI
     m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.09f, 0.071f, 0.098f), glm::vec3(0.6f, 0.25f, 0.0), m_quad, m_ui_shader));
-    m_ui_elements.emplace_back(new ui::TextBox( glm::vec3(1.0f), glm::vec3(0.72f, 0.9f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Add Planet", 0.4f));
-    m_input_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.72f, 0.6f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", "Add", 0.4f));
-    m_input_elements.emplace_back(new ui::TextField(glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.72f, 0.7f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.4f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.72f, 0.92f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Add Planet", 0.4f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.64f, 0.82f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Pos.", 0.3f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.64f, 0.72f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Vel.", 0.3f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.64f, 0.62f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Mass", 0.3f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.64f, 0.52f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "Radius", 0.3f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.64f, 0.42f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "R:", 0.3f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.75f, 0.42f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "G:", 0.3f));
+    m_ui_elements.emplace_back(new ui::TextBox(glm::vec3(1.0f), glm::vec3(0.86f, 0.42f, 0.0f), m_quad, m_text_shader, "./resources/Roboto-Medium.ttf", "B:", 0.3f));
+    // submit button
+    m_input_elements.emplace_back(new ui::Button( glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.78f, 0.31f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", "Add", 0.3f));
+
+    // fields for mass, velocity, position, colour
+    m_input_elements.emplace_back(new ui::TextField(0.2f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.77f, 0.82f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
+    m_input_elements.emplace_back(new ui::TextField(0.2f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.77f, 0.72f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
+    m_input_elements.emplace_back(new ui::TextField(0.2f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.77f, 0.62f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
+    m_input_elements.emplace_back(new ui::TextField(0.2f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.77f, 0.52f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
+    m_input_elements.emplace_back(new ui::TextField(0.08f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.67f, 0.42f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
+    m_input_elements.emplace_back(new ui::TextField(0.08f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.78f, 0.42f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
+    m_input_elements.emplace_back(new ui::TextField(0.08f, 0.07f, glm::vec3(1.0f), glm::vec3(0.223f, 0.243f, 0.255f), glm::vec3(0.89f, 0.42f, 0.0f), m_quad, m_text_shader, m_ui_shader, "./resources/Roboto-Medium.ttf", 0.3f));
     //m_ui_elements.emplace_back(new ui::Rectangle(0.4, 0.75, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.72f, 0.85f, 0.0f), m_quad, m_ui_shader));
 }
 
@@ -129,7 +146,7 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     m_cubemap_shader.set_mat4("view", view);
     m_cubemap_shader.set_mat4("projection", projection);
 
-    //m_cube_map.draw_cubemap();
+    m_cube_map.draw_cubemap();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     glfwSwapBuffers(window);
@@ -137,69 +154,67 @@ void rendering::Program::render_frame(GLFWwindow* window) {
 }
 
 void rendering::Program::poll_inputs(GLFWwindow* window) {
-    for (unsigned int i = 0; i < m_input_elements.size(); i++) {
-        m_input_elements[i]->check_focus(clickx, clicky, releasex, releasey);
+
+    bool camera_lock = false;
+
+    for (unsigned int i = 1; i < m_input_elements.size(); i++) {
+        if (m_input_elements[i]->check_focus(clickx, clicky, releasex, releasey)) {
+            camera_lock = true;
+            switch (input_char) {
+                case (GLFW_KEY_0):
+                    m_input_elements[i]->m_text.push_back('0');
+                    break;
+                case GLFW_KEY_1:
+                    m_input_elements[i]->m_text.push_back('1');
+                    break;
+                case GLFW_KEY_2:
+                    m_input_elements[i]->m_text.push_back('2');
+                    break;
+                case GLFW_KEY_3:
+                    m_input_elements[i]->m_text.push_back('3');
+                    break;
+                case GLFW_KEY_4:
+                    m_input_elements[i]->m_text.push_back('4');
+                    break;
+                case GLFW_KEY_5:
+                    m_input_elements[i]->m_text.push_back('5');
+                    break;
+                case GLFW_KEY_6:
+                    m_input_elements[i]->m_text.push_back('6');
+                    break;
+                case GLFW_KEY_7:
+                    m_input_elements[i]->m_text.push_back('7');
+                    break;
+                case GLFW_KEY_8:
+                    m_input_elements[i]->m_text.push_back('8');
+                    break;
+                case GLFW_KEY_9:
+                    m_input_elements[i]->m_text.push_back('9');
+                    break;
+                case GLFW_KEY_PERIOD:
+                    m_input_elements[i]->m_text.push_back('.');
+                    break;
+                case GLFW_KEY_COMMA:
+                    m_input_elements[i]->m_text.push_back(',');
+                    break;
+                case GLFW_KEY_BACKSPACE:
+                    if (m_input_elements[i]->m_text.length() > 0)
+                        m_input_elements[i]->m_text.pop_back();
+                    break;
+            }
+            
+        }
         m_input_elements[i]->callback();
     }
 
-    if (m_input_elements[1]->check_focus(clickx, clicky, releasex, releasey)) {
+    if (m_input_elements[0]->check_focus(clickx, clicky, releasex, releasey))
+        add_planet();
 
+    m_input_elements[0]->callback();
 
-        std::cout << input_char << std::endl;
+    input_char = -1;
 
-        if (input_char == GLFW_KEY_0)
-            m_input_elements[1]->m_text.push_back('0');
-        else if (input_char == GLFW_KEY_1)
-            m_input_elements[1]->m_text.push_back('1');
-        else if (input_char == GLFW_KEY_2)
-            m_input_elements[1]->m_text.push_back('2');
-        else if (input_char == GLFW_KEY_3)
-            m_input_elements[1]->m_text.push_back('3');
-        else if (input_char == GLFW_KEY_4)
-            m_input_elements[1]->m_text.push_back('4');
-        else if (input_char == GLFW_KEY_5)
-            m_input_elements[1]->m_text.push_back('5');
-        else if (input_char == GLFW_KEY_6)
-            m_input_elements[1]->m_text.push_back('6');
-        else if (input_char == GLFW_KEY_7)
-            m_input_elements[1]->m_text.push_back('7');
-        else if (input_char == GLFW_KEY_8)
-            m_input_elements[1]->m_text.push_back('8');
-        else if (input_char == GLFW_KEY_9)
-            m_input_elements[1]->m_text.push_back('9');
-        else if (input_char == GLFW_KEY_PERIOD)
-            m_input_elements[1]->m_text.push_back('.');
-        else if (input_char == GLFW_KEY_BACKSPACE && m_input_elements[1]->m_text.length() > 0)
-            m_input_elements[1]->m_text.pop_back();
-
-        input_char = -1;
-
-        /*if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('0');
-        else if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('1');
-        else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('2');
-        else if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('3');
-        else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('4');
-        else if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('5');
-        else if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('6');
-        else if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('7');
-        else if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('8');
-        else if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('9');
-        else if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)
-            m_input_elements[1]->m_text.push_back('.');
-        else if (glfwGetKey(window, GLFW_KEY_BACKSPACE) == GLFW_PRESS && m_input_elements[1]->m_text.length() > 0)
-            m_input_elements[1]->m_text.pop_back();*/
-    }
-    else {
+    if (!camera_lock) {
         update_camera(window);
     }
 
@@ -207,4 +222,42 @@ void rendering::Program::poll_inputs(GLFWwindow* window) {
         clickx = rendering::INVALID_COOR, clicky = rendering::INVALID_COOR;
         releasex = rendering::INVALID_COOR, releasey = rendering::INVALID_COOR;
     }
+}
+
+void rendering::Program::add_planet() {
+
+    float params[7] = {};
+    float base = 1e24;
+    float mantissa = 0;
+    float decimal_base = 1.0f;
+
+    for (unsigned int i = 1; i < m_input_elements.size(); i++) {
+        for (std::string::const_iterator c = m_input_elements[i]->m_text.begin(); c != m_input_elements[i]->m_text.end(); c++) {
+            
+            
+            if (*c >= '0' && *c <= '9') {
+                int digit = *c - '0';
+
+                if (decimal_base == 1) mantissa *= 10.0f;
+
+                mantissa += digit * decimal_base;
+             
+            } 
+                
+            if (*c == '.' || decimal_base != 1) {
+                decimal_base /= 10.0f;
+            }
+        }
+
+        params[i-1] = mantissa;
+        mantissa = 0;
+        decimal_base = 1.0f;
+    }
+
+    glm::vec3 colour(params[4] / 255.0f, params[5] / 255.0f, params[6] / 255.0f);
+
+    std::cout << colour.x << "," << colour.y << "," << colour.z << std::endl;
+
+    m_planets.emplace_back(m_sphere, m_planet_shader, params[3], colour, params[0] * 1e9, params[1] * 1e3, params[2] * 1e24);
+
 }

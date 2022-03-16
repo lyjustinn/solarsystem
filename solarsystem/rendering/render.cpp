@@ -116,12 +116,12 @@ void rendering::mouse_button_callback(GLFWwindow* window, int button, int action
         releasex = xpos, releasey = ypos;
     }
         
-    std::cout << clickx << ", " << clicky << std::endl;
-    std::cout << releasex << ", " << releasey << std::endl;
+    /*std::cout << clickx << ", " << clicky << std::endl;
+    std::cout << releasex << ", " << releasey << std::endl;*/
 }
 
 void rendering::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if ((GLFW_KEY_0 <= key && GLFW_KEY_9 >= key || key == GLFW_KEY_PERIOD || key == GLFW_KEY_BACKSPACE) && (action == GLFW_PRESS || action == GLFW_REPEAT))
+    if ((GLFW_KEY_0 <= key && GLFW_KEY_9 >= key || key == GLFW_KEY_PERIOD || key == GLFW_KEY_BACKSPACE || key == GLFW_KEY_COMMA) && (action == GLFW_PRESS || action == GLFW_REPEAT))
         input_char = key;
     else input_char = -1;
 }
