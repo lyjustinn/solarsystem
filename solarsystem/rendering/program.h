@@ -7,6 +7,7 @@
 #include "sphere.h"
 #include "planet.h"
 #include "quad.h"
+#include "hdr.h"
 #include "../ui/element.h"
 #include "../ui/button.h"
 
@@ -19,10 +20,13 @@ namespace rendering {
 	class Program {
 	private:
 
+		// high dynamic range
+		HDR m_hdr;
+
 		// rendering primitives
-		rendering::CubeMap m_cube_map;
-		rendering::Sphere m_sphere;
-		rendering::Quad m_quad;
+		CubeMap m_cube_map;
+		Sphere m_sphere;
+		Quad m_quad;
 
 		// shader programs
 		objects::ShaderProgram m_planet_shader;

@@ -19,7 +19,8 @@ rendering::Program::Program():
     m_star_shader("./shaders/star_v_shader.glsl", "./shaders/star_f_shader.glsl"),
     m_cubemap_shader("./shaders/cubemap_v_shader.glsl", "./shaders/cubemap_f_shader.glsl"),
     m_ui_shader("./shaders/ui_v_shader.glsl", "./shaders/ui_f_shader.glsl"),
-    m_text_shader("./shaders/text_v_shader.glsl", "./shaders/text_f_shader.glsl")
+    m_text_shader("./shaders/text_v_shader.glsl", "./shaders/text_f_shader.glsl"),
+    m_hdr("./shaders/blur_v_shader.glsl", "./shaders/blur_f_shader.glsl", "./shaders/screen_v_shader.glsl", "./shaders/screen_f_shader.glsl")
 {
 
     // opengl config
@@ -82,6 +83,8 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     // render
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    m_hdr.prerender();
 
     // draw star
     m_star_shader.use();
@@ -147,6 +150,11 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     m_cubemap_shader.set_mat4("projection", projection);
 
     m_cube_map.draw_cubemap();
+
+    // reset fbo
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    m_hdr.apply_blur();
+    m_hdr.render_to_screen();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     glfwSwapBuffers(window);

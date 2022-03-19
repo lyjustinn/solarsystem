@@ -77,6 +77,9 @@
     <ClCompile Include="ui\text_field.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\hdr.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objects\camera.h">
@@ -127,6 +130,9 @@
     <ClInclude Include="ui\text_field.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="rendering\hdr.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\star_v_shader.glsl">
@@ -157,6 +163,18 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\text_f_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\blur_v_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\blur_f_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\screen_v_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\screen_f_shader.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

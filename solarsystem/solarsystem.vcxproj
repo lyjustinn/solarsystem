@@ -147,6 +147,7 @@
     <ClCompile Include="objects\camera.cpp" />
     <ClCompile Include="objects\shader_program.cpp" />
     <ClCompile Include="rendering\cube_map.cpp" />
+    <ClCompile Include="rendering\hdr.cpp" />
     <ClCompile Include="rendering\planet.cpp" />
     <ClCompile Include="rendering\program.cpp" />
     <ClCompile Include="rendering\quad.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="objects\mouse_picker.h" />
     <ClInclude Include="objects\shader_program.h" />
     <ClInclude Include="rendering\cube_map.h" />
+    <ClInclude Include="rendering\hdr.h" />
     <ClInclude Include="rendering\planet.h" />
     <ClInclude Include="rendering\program.h" />
     <ClInclude Include="rendering\quad.h" />
@@ -179,10 +181,14 @@
     <ClInclude Include="ui\text_field.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\blur_f_shader.glsl" />
+    <None Include="shaders\blur_v_shader.glsl" />
     <None Include="shaders\cubemap_f_shader.glsl" />
     <None Include="shaders\cubemap_v_shader.glsl" />
     <None Include="shaders\planet_f_shader.glsl" />
     <None Include="shaders\planet_v_shader.glsl" />
+    <None Include="shaders\screen_f_shader.glsl" />
+    <None Include="shaders\screen_v_shader.glsl" />
     <None Include="shaders\star_f_shader.glsl" />
     <None Include="shaders\star_v_shader.glsl" />
     <None Include="shaders\text_f_shader.glsl" />
