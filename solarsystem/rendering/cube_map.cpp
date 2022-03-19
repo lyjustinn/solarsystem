@@ -86,7 +86,7 @@ unsigned int rendering::CubeMap::load_cubemap(std::vector<std::string> faces) {
         unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nChannels, 0);
 
         if (data) {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         }
         else {
             std::cout << "Failed to load cubemap texture at path: " << faces[i] << std::endl;

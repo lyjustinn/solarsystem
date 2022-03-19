@@ -4,7 +4,7 @@
 #include <iostream>
 
 rendering::HDR::HDR(const char* blur_v, const char* blur_f, const char* screen_v, const char* screen_f):
-	m_blur_shader(blur_v, blur_f), m_screen_shader(screen_v, screen_f), m_rbo_depth(),
+	m_blur_shader(blur_v, blur_f), m_screen_shader(screen_v, screen_f), m_rbo_depth(), m_blur_index(1),
     m_colour_buffers(), m_pingpong_fbos(), m_pingpong_colour_buffers() {
 
 	glGenFramebuffers(1, &m_fbo);
@@ -62,7 +62,7 @@ rendering::HDR::HDR(const char* blur_v, const char* blur_f, const char* screen_v
     }
 
     m_blur_shader.use();
-    m_blur_shader.set_int("image", 0);
+    m_blur_shader.set_int("u_image", 0);
     m_screen_shader.use();
     m_screen_shader.set_int("u_scene", 0);
     m_screen_shader.set_int("u_bloomBlur", 1);
@@ -93,7 +93,26 @@ void rendering::HDR::prerender() {
 }
 
 void rendering::HDR::apply_blur() {
+    bool first_iteration = true;
+    unsigned int amount = 5;
+    m_blur_shader.use();
+    for (unsigned int i = 0; i < amount; i++)
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, m_pingpong_fbos[m_blur_index]);
+        m_blur_shader.set_int("u_horizontal", m_blur_index);
+        glBindTexture(GL_TEXTURE_2D, first_iteration ? m_colour_buffers[1] : m_pingpong_colour_buffers[!m_blur_index]);
+        draw_quad();
+        m_blur_index = (m_blur_index+1) & 1;
+        if (first_iteration)
+            first_iteration = false;
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
 
+void rendering::HDR::draw_quad() {
+    glBindVertexArray(m_quad_vao);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindVertexArray(0);
 }
 
 void rendering::HDR::render_to_screen() {
@@ -101,11 +120,8 @@ void rendering::HDR::render_to_screen() {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_colour_buffers[0]);
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_pingpong_colour_buffers[0]);
-    m_screen_shader.set_int("u_bloom", 1);
+    glBindTexture(GL_TEXTURE_2D, m_pingpong_colour_buffers[m_blur_index]);
     m_screen_shader.set_float("u_exposure", 1.0f);
     
-    glBindVertexArray(m_quad_vao);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glBindVertexArray(0);
+    draw_quad();
 }

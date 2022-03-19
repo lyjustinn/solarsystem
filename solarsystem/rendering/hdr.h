@@ -15,9 +15,12 @@ namespace rendering {
 		unsigned int m_rbo_depth;
 		unsigned int m_quad_vao;
 		unsigned int m_quad_vbo;
+		unsigned int m_blur_index;
 		std::vector<unsigned int> m_colour_buffers;
 		std::vector<unsigned int> m_pingpong_fbos;
 		std::vector<unsigned int> m_pingpong_colour_buffers;
+
+		void draw_quad();
 
 	public:
 		HDR(const char * blur_v, const char* blur_f, const char* screen_v, const char* screen_f);

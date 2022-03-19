@@ -134,15 +134,6 @@ void rendering::Program::render_frame(GLFWwindow* window) {
         m_planets[i].draw_planet();
     }
 
-    // draw ui
-    for (unsigned int i = 0; i < m_ui_elements.size(); i++) {
-        m_ui_elements[i]->draw();
-    }
-
-    for (unsigned int i = 0; i < m_input_elements.size(); i++) {
-        m_input_elements[i]->draw();
-    }
-
     // draw skybox/cubemap
     m_cubemap_shader.use();
     view = glm::mat4(glm::mat3(camera.get_view_matrix()));
@@ -155,6 +146,15 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     m_hdr.apply_blur();
     m_hdr.render_to_screen();
+
+    // draw ui
+    for (unsigned int i = 0; i < m_ui_elements.size(); i++) {
+        m_ui_elements[i]->draw();
+    }
+
+    for (unsigned int i = 0; i < m_input_elements.size(); i++) {
+        m_input_elements[i]->draw();
+    }
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     glfwSwapBuffers(window);
