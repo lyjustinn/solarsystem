@@ -27,9 +27,12 @@ rendering::Program::Program():
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
 
-    // init skybox texture
+    // init textures and shaders
     m_cubemap_shader.use();
     m_cubemap_shader.set_int("skybox", 0);
+    m_star_shader.use();
+    m_star_shader.set_int("u_texture", 0);
+    m_star_texture = load_texture("./resources/sun.jpg");
 
     // set lighting properties
     m_planet_shader.use();
@@ -95,6 +98,8 @@ void rendering::Program::render_frame(GLFWwindow* window) {
     m_star_shader.set_mat4("view", view);
     glm::mat4 model = glm::mat4(1.0f);
     m_star_shader.set_mat4("model", model);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_star_texture);
     m_sphere.draw_sphere();
 
     // draw planets

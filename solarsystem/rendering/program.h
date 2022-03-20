@@ -39,6 +39,7 @@ namespace rendering {
 		std::vector<Planet> m_planets;
 		std::vector<std::unique_ptr<ui::Element>> m_ui_elements;
 		std::vector<std::unique_ptr<ui::Button>> m_input_elements;
+		unsigned int m_star_texture;
 
 		void poll_inputs(GLFWwindow *);
 		void add_planet();

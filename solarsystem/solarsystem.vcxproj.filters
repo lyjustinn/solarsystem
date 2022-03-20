@@ -182,12 +182,15 @@
     <Image Include="resources\background.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\sun.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="resources\arial.ttf">
+    <Font Include="resources\Roboto-Medium.ttf">
       <Filter>Resource Files</Filter>
     </Font>
-    <Font Include="resources\Roboto-Medium.ttf">
+    <Font Include="resources\arial.ttf">
       <Filter>Resource Files</Filter>
     </Font>
   </ItemGroup>

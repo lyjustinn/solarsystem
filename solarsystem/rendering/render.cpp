@@ -1,4 +1,5 @@
 #include "render.h"
+#include "../stb_image.h"
 
 #include <iostream>
 
@@ -125,6 +126,46 @@ void rendering::key_callback(GLFWwindow* window, int key, int scancode, int acti
     if ((GLFW_KEY_0 <= key && GLFW_KEY_9 >= key || key == GLFW_KEY_PERIOD || key == GLFW_KEY_BACKSPACE || key == GLFW_KEY_COMMA) && (action == GLFW_PRESS || action == GLFW_REPEAT))
         input_char = key;
     else input_char = -1;
+}
+
+unsigned int rendering::load_texture(const char* path) {
+    unsigned int texture;
+    glGenTextures(1, &texture);
+
+    int width, height, n_components;
+    unsigned char* data = stbi_load(path, &width, &height, &n_components, 0);
+
+    if (data) {
+        GLenum internal_format = GL_RED;
+        GLenum data_format = GL_RED;
+
+        if (n_components == 3)
+        {
+            internal_format = GL_SRGB;
+            data_format = GL_RGB;
+        }
+        else if (n_components == 4)
+        {
+            internal_format = GL_SRGB_ALPHA;
+            data_format = GL_RGBA;
+        }
+
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
+    } else {
+        std::cout << "Texture failed to load at path: " << path << std::endl;
+        stbi_image_free(data);
+    }
+
+    return texture;
 }
 
 GLFWwindow * rendering::init_glfw_glad() {
