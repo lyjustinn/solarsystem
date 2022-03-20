@@ -35,6 +35,7 @@ namespace rendering {
 	extern const float N_GRAV;
 	extern const float PI;
 	extern const float INVALID_COOR;
+	extern const unsigned int SAMPLES;
 
 	extern objects::Camera camera;
 

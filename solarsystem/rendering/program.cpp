@@ -24,6 +24,7 @@ rendering::Program::Program():
 {
 
     // opengl config
+    glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
 
     // init skybox texture

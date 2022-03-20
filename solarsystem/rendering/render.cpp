@@ -25,6 +25,7 @@ const float rendering::ORBIT_DT = 3600.0f * 48.0f;
 const float rendering::N_GRAV = 6.67e-11;
 const float rendering::PI = 3.14159265359f;
 const float rendering::INVALID_COOR = -2.0f;
+const unsigned int rendering::SAMPLES = 4;
 
 objects::Camera rendering::camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -131,6 +132,7 @@ GLFWwindow * rendering::init_glfw_glad() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_SAMPLES, 4);
 
     GLFWwindow* window = glfwCreateWindow(scr_width, scr_height, "Solar System", NULL, NULL);
 

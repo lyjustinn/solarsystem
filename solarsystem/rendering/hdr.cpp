@@ -17,19 +17,15 @@ rendering::HDR::HDR(const char* blur_v, const char* blur_f, const char* screen_v
 
     for (unsigned int i = 0; i < 2; i++)
     {
-        glBindTexture(GL_TEXTURE_2D, m_colour_buffers[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, scr_width, scr_height, 0, GL_RGBA, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_colour_buffers[i]);
+        glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, SAMPLES, GL_RGBA16F, scr_width, scr_height, GL_TRUE);
 
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_colour_buffers[i], 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D_MULTISAMPLE, m_colour_buffers[i], 0);
     }
 
     glGenRenderbuffers(1, &m_rbo_depth);
     glBindRenderbuffer(GL_RENDERBUFFER, m_rbo_depth);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, scr_width, scr_height);
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, SAMPLES, GL_DEPTH_COMPONENT, scr_width, scr_height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_rbo_depth);
 
     unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
@@ -94,13 +90,20 @@ void rendering::HDR::prerender() {
 
 void rendering::HDR::apply_blur() {
     bool first_iteration = true;
-    unsigned int amount = 5;
+    unsigned int amount = 7;
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
+    glReadBuffer(GL_COLOR_ATTACHMENT1);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_pingpong_fbos[!m_blur_index]);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);
+    glBlitFramebuffer(0, 0, scr_width, scr_height, 0, 0, scr_width, scr_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
     m_blur_shader.use();
     for (unsigned int i = 0; i < amount; i++)
     {
         glBindFramebuffer(GL_FRAMEBUFFER, m_pingpong_fbos[m_blur_index]);
         m_blur_shader.set_int("u_horizontal", m_blur_index);
-        glBindTexture(GL_TEXTURE_2D, first_iteration ? m_colour_buffers[1] : m_pingpong_colour_buffers[!m_blur_index]);
+        glBindTexture(GL_TEXTURE_2D, m_pingpong_colour_buffers[!m_blur_index]);
         draw_quad();
         m_blur_index = (m_blur_index+1) & 1;
         if (first_iteration)
@@ -116,9 +119,18 @@ void rendering::HDR::draw_quad() {
 }
 
 void rendering::HDR::render_to_screen() {
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
+    glReadBuffer(GL_COLOR_ATTACHMENT0);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_pingpong_fbos[!m_blur_index]);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);
+    glBlitFramebuffer(0, 0, scr_width, scr_height, 0, 0, scr_width, scr_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     m_screen_shader.use();
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_colour_buffers[0]);
+    glBindTexture(GL_TEXTURE_2D, m_pingpong_colour_buffers[!m_blur_index]);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_pingpong_colour_buffers[m_blur_index]);
     m_screen_shader.set_float("u_exposure", 1.0f);
